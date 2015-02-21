@@ -26,8 +26,6 @@ with open('counties_utf8.json') as data_file:
 
 features = []
 
-max = 0
-
 # if you are looking at this, note you have to change the names of LaPonte, IN and Dona Ana, NM
 # in order for this code to parse properly
 for msa, counties in msa_dict.iteritems():  #counties = (COUNTY_CODE, COUNTY_NAME)
@@ -43,7 +41,8 @@ for msa, counties in msa_dict.iteritems():  #counties = (COUNTY_CODE, COUNTY_NAM
     geometry_collection = GeometryCollection(geometry)
     features.append(Feature(geometry=geometry_collection, properties={'NAME': msa}))
 
-dump = dumps(features)
+feature_collection = FeatureCollection(features)
+dump = dumps(feature_collection)
 
 with open('metropolitan_statistic_areas.json', 'w') as f:
      f.write(dump)
