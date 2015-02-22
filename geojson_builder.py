@@ -33,8 +33,9 @@ for msa, counties in msa_dict.iteritems():  #counties = (COUNTY_CODE, COUNTY_NAM
     for county in counties:
         for json_county in data['features']:
             if (json_county['properties']['COUNTY'] == county[0] and (json_county['properties']['NAME'] in county[1])):
-                geometry.append(json_county['geometry'])
-                continue
+                if (not json_county['geometry'] in geometry):
+                    geometry.append(json_county['geometry'])
+                    continue
     if (len(geometry) == 0):
         print county[1] + ' in ' + msa + ' hasn\'t found matching geojson data!'
         continue    # we don't care if we miss a county or two
