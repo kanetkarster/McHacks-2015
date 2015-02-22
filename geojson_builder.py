@@ -18,7 +18,7 @@ with open('area_definitions_m2013.csv') as definitions:
             county_code = row['County code']
             msa_dict[msa_name] = []
         # Add county code to allow county to be uniquely identifiable
-        msa_dict[msa_name].append( (row['County code'], row['County name'] ))
+        msa_dict[msa_name].append( (int(row['County code']), row['County name'] ))
 
 #combining geojson objects
 with open('counties_utf8.json') as data_file:
@@ -32,10 +32,10 @@ for msa, counties in msa_dict.iteritems():  #counties = (COUNTY_CODE, COUNTY_NAM
     geometry = []
     for county in counties:
         for json_county in data['features']:
-            if (json_county['properties']['COUNTY'] == county[0] and (json_county['properties']['NAME'] in county[1])):
-                if (not json_county['geometry'] in geometry):
-                    geometry.append(json_county['geometry'])
-                    continue
+            if (int(json_county['properties']['COUNTY']) == county[0] and (json_county['properties']['NAME'] in county[1])):
+                #if (not json_county['geometry'] in geometry):
+                geometry.append(json_county['geometry'])
+                continue
     if (len(geometry) == 0):
         print county[1] + ' in ' + msa + ' hasn\'t found matching geojson data!'
         continue    # we don't care if we miss a county or two
