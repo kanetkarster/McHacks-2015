@@ -998,6 +998,8 @@
   <script src="bower_components/modernizr/modernizr.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
   <script src="js/leaflet-heat.js"></script>
+  <script src="js/metropolitan_statistic_areas_compressed.js"></script>
+
   <script type="text/javascript">
     $('#occupation').select2({});
     $('#location').select2({})
@@ -1013,9 +1015,7 @@
         'Imagery © <a href="http://mapbox.com">Mapbox</a>',
       id: 'examples.map-i875mjb7'
     }).addTo(map);
-
-    L.heatLayer([[51.51, -0.09, "1000"]]).addTo(map);
-
+    L.geoJson(geojsonData).addTo(map);
     // L.marker([51.5, -0.09]).addTo(map)
     //   .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 
